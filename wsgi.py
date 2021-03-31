@@ -34,7 +34,7 @@ def read_one_product(id):
 
     return (jsonify(product), 200)
 
-@app.route('/api/v1/products/<int:id>',methods = ['delete'])
+@app.route('/api/v1/product/<int:id>',methods = ['delete'])
 def delete_one_product(id):
     product = my_dict.get(id)
     if product is None:
@@ -43,7 +43,7 @@ def delete_one_product(id):
     del my_dict[id]
     return (None, 204)
 
-@app.route('/api/v1/products',methods = ['post'])
+@app.route('/api/v1/product',methods = ['post'])
 def add_one_product():
     next_index = max(my_dict.keys()) + 1
     my_request_json = request.get_json()
@@ -57,17 +57,17 @@ def add_one_product():
 
     return ("", 201)
 
-@app.route('/api/v1/products',methods = ['patch'])
-def update_one_product():
+@app.route('/api/v1/product/<int:id>',methods = ['patch'])
+def update_one_product(id):
     my_request_json = request.get_json()
     #print(my_request_json)
-    if 'id' not in my_request_json or 'name' not in my_request_json:
+    if 'name' not in my_request_json:
         abort(404)
 
-    if my_request_json['id'] not in my_dict:
+    if id not in my_dict:
         abort(422)
 
-    my_dict[my_request_json['id']]['name'] = my_request_json['name']
+    my_dict[id]['name'] = my_request_json['name']
     print(my_dict)
 
     return ("", 204)
