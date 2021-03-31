@@ -52,10 +52,10 @@ def add_one_product():
         abort(404)
     #print(type(my_request_json))
     #print(my_request_json['name'])
-    my_dict[next_index] = {'id':4, 'name': my_request_json['name'] }
+    my_dict[next_index] = {'id':next_index, 'name': my_request_json['name'] }
     #print(my_dict)
 
-    return ("", 201)
+    return (my_dict[next_index], 201)
 
 @app.route('/api/v1/product/<int:id>',methods = ['patch'])
 def update_one_product(id):

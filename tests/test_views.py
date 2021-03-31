@@ -31,13 +31,13 @@ class TestViews(TestCase):
     # il faut le réinsérer derriere
 
     def test_add_one_product(self):
-        response = self.client.post("/api/v1/products", json={'name': 'Netflix'})
+        response = self.client.post("/api/v1/product", json={'name': 'Netflix'})
         self.assertEquals(response.status_code, 201)
 
     def test_update_one_product(self):
-        response = self.client.patch("/api/v1/products", json={'id':3, 'name': 'Netflix'})
+        response = self.client.patch("/api/v1/product/3", json={'name': 'Netflix'})
         self.assertEquals(response.status_code, 204)
 
     def test_update_one_product_raises_422(self):
-        response = self.client.patch("/api/v1/products", json={'id':7, 'name': 'Netflix'})
+        response = self.client.patch("/api/v1/product/7", json={'name': 'Netflix'})
         self.assertEquals(response.status_code, 422)
